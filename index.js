@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const {upload} = require("./src/upload");
 const {saveSettings, showSettings} = require("./src/settings");
 const args = require("minimist")(process.argv.slice(2));

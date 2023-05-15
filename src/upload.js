@@ -30,8 +30,6 @@ const upload = (filePath = null) => {
         const regex = /^Screenshot\s\d{4}-\d{2}-\d{2}\sat\s\d{1,2}\.\d{2}\.\d{2}\s(AM|PM)\.png$/;
         const screenshotFiles = files.filter(file => regex.test(file));
 
-        console.log(screenshotFiles);
-
         fileName = screenshotFiles[0];
         file = fs.readFileSync(`${desktopDir}/${fileName}`);
     } else {

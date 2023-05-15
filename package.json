@@ -1,5 +1,5 @@
 {
-  "name": "imgurify",
+  "name": "@gkasdorf/imgurify",
   "version": "0.0.1",
   "description": "macOS screenshots to imgur",
   "main": "index.js",

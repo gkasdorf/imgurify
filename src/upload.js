@@ -6,7 +6,11 @@ const {getSettings} = require("./settings");
 const desktopDir = `${os.homedir()}/Desktop`;
 
 const getFiles = () => {
-    return fs.readdirSync(desktopDir);
+    const list = fs.readdirSync(desktopDir);
+
+    return list.sort((a, b) => {
+        return fs.statSync(`${desktopDir}/${b}`).mtime.getTime() - fs.statSync(`${desktopDir}/${a}`).mtime.getTime();
+    });
 };
 
 const upload = (filePath = null) => {
@@ -26,7 +30,9 @@ const upload = (filePath = null) => {
         const regex = /^Screenshot\s\d{4}-\d{2}-\d{2}\sat\s\d{1,2}\.\d{2}\.\d{2}\s(AM|PM)\.png$/;
         const screenshotFiles = files.filter(file => regex.test(file));
 
-        fileName = screenshotFiles[screenshotFiles.length - 1];
+        console.log(screenshotFiles);
+
+        fileName = screenshotFiles[0];
         file = fs.readFileSync(`${desktopDir}/${fileName}`);
     } else {
         const split = filePath.split("/");

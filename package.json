@@ -1,6 +1,6 @@
 {
   "name": "@gkasdorf/imgurify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "macOS screenshots to imgur",
   "main": "index.js",
   "scripts": {
@@ -25,5 +25,8 @@
   "dependencies": {
     "axios": "^1.4.0",
     "minimist": "^1.2.8"
+  },
+  "bin": {
+    "imgurify": "index.js"
   }
 }

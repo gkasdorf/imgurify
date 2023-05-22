@@ -5,6 +5,11 @@ path for the image.
 If you are on macOS, imgurify will get the latest screenshot provided it was saved to your Desktop and the name of the file
 is a standard macOS screenshot name (i.e. `Screenshot 2023-05-14 at 7.12.48 PM`).
 
+## Permissions
+If you are running macOS and are receiving an error regarding permissions, please ensure that Terminal has permission to files on your desktop.
+
+![image](https://i.imgur.com/IoGZTfI.png)
+
 ## Requirements
 You will need to obtain an Imgur client ID from [the API registration page](https://api.imgur.com/oauth2/addclient).
 

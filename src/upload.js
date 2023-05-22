@@ -2,6 +2,7 @@ const fs = require('fs');
 const os = require("os");
 const {uploadImage} = require("./imgur/imgurApi");
 const {getSettings} = require("./settings");
+const ncp = require("copy-paste");
 
 const desktopDir = `${os.homedir()}/Desktop`;
 
@@ -13,7 +14,7 @@ const getFiles = () => {
     });
 };
 
-const upload = (filePath = null) => {
+const upload = async (filePath = null) => {
     const settings  = getSettings();
 
     if(!settings || settings["clientId"] === "" || !settings["clientId"]) {
@@ -39,23 +40,27 @@ const upload = (filePath = null) => {
         file = fs.readFileSync(filePath);
     }
 
-    uploadImage(file, fileName).then(r => {
-        if(!r.data.success) {
-            console.log("Error uploading image to imgur.");
+    const uploadRes = await uploadImage(file, fileName);
 
-            if(args["debug"]) {
-                console.log(r);
-                return;
-            }
+    if(!uploadRes.data.success) {
+        console.log("Error uploading image to imgur.");
 
-            console.log("Run with --debug to see the error message.");
-
+        if(args["debug"]) {
+            console.log(uploadRes);
             return;
         }
 
-        console.log("Image uploaded to imgur.");
-        console.log(`Link: ${r.data.data.link}`);
-    });
+        console.log("Run with --debug to see the error message.");
+        return;
+    }
+
+    console.log("Image uploaded to imgur.");
+    console.log(`Links: ${uploadRes.data.data.link}`);
+
+    if(args["copy"]) {
+        await ncp.copy(uploadRes.data.data.link);
+        console.log("Link copied to clipboard.");
+    }
 }
 
 module.exports = {

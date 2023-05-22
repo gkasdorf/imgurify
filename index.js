@@ -6,7 +6,7 @@ const args = require("minimist")(process.argv.slice(2));
 
 global.args = args;
 
-if(args["set-client-id"]) {
+if(args["set-client-id"] || args[""]) {
     saveSettings();
 }
 
@@ -19,6 +19,7 @@ if(args["help"] || args["h"] || Object.keys(args).length === 1) {
     console.log("  --show-settings                  Show the saved settings.");
     console.log("  --upload/-u                      Upload the latest screenshot to imgur.");
     console.log("  --upload/-u [path]               Upload the image at the specified path to imgur.");
+    console.log("  --copy                           Copy the link to the clipboard after uploading.");
     console.log("  --debug                          Show debug information.");
 } else if((args["upload"] && args["upload"] === true) || (args["u"] && args["u"] === true)) {
     upload();
